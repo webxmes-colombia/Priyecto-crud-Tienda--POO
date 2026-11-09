@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="es_CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#04152b">
+  <meta name="description" content="Compra repuestos para computadores y encuentra productos para mantener tus equipos funcionando.">
+  <link rel="canonical" href="https://repuestoscomputadorbogota.com/">
+  <meta property="og:site_name" content="Repuestos Computador Bogotá">
+  <meta property="og:title" content="Repuestos Computador Bogotá | Repuestos y servicio técnico">
+  <meta property="og:description" content="Encuentra repuestos para computadores y consulta nuestro catálogo.">
+  <meta property="og:url" content="https://repuestoscomputadorbogota.com/">
+  <meta property="og:type" content="website">
+  <title>Repuestos Computador Bogotá | Repuestos y servicio técnico</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Tienda de repuestos, inicio">
+      <img class="brand-logo" src="assets/logo.svg" alt="RepuestosComputadorBogotá">
+    </a>
+    <div id="account-summary" class="account-summary" hidden>
+      <span id="account-label"></span>
+      <button id="logout-button" class="button button-quiet" type="button">Cerrar sesión</button>
+    </div>
+    <button id="cart-open" class="button cart-open" type="button" aria-expanded="false" aria-controls="cart-panel">
+      Carrito <span id="cart-count" class="cart-count">0</span>
+    </button>
+  </header>
+
+  <section id="cart-panel" class="cart-panel" aria-labelledby="cart-title" hidden>
+    <div class="cart-header">
+      <div><p class="eyebrow">Tu compra</p><h2 id="cart-title">Carrito</h2></div>
+      <button id="cart-close" class="button button-quiet" type="button">Seguir comprando</button>
+    </div>
+    <div class="cart-layout">
+      <div>
+        <div id="cart-items" class="cart-items"></div>
+        <p id="cart-empty" class="muted">Todavía no agregas productos.</p>
+      </div>
+      <aside class="cart-checkout-card">
+        <h3>Resumen</h3>
+        <div class="cart-total-row"><span>Productos</span><strong id="cart-subtotal">$ 0</strong></div>
+        <div class="cart-total-row"><span>Envío</span><span>Por coordinar</span></div>
+        <p class="delivery-note">El valor de entrega se confirma con la tienda. El total mostrado corresponde a los productos.</p>
+        <p id="cart-auth-hint" class="form-message" role="status" aria-live="polite"></p>
+        <button id="cart-login-button" class="button button-secondary full-width" type="button" hidden>Ingresar para continuar</button>
+        <form id="checkout-form" class="form-stack" hidden>
+          <label>Correo para el pedido<input name="delivery_email" type="email" required maxlength="150"></label>
+          <label>Teléfono de entrega<input name="delivery_phone" type="tel" required minlength="7" maxlength="30"></label>
+          <label>Dirección de entrega<textarea name="delivery_address" rows="2" required minlength="5" maxlength="200"></textarea></label>
+          <label>Método de pago<select name="payment_method" required>
+            <option value="contraentrega">Contraentrega</option>
+            <option value="nequi">Nequi (transferencia manual)</option>
+            <option value="daviplata">Daviplata (transferencia manual)</option>
+          </select></label>
+          <p class="delivery-note">Las transferencias quedan pendientes de confirmación. No se realiza ningún cobro en línea.</p>
+          <button id="place-order" class="button button-primary full-width" type="submit">Confirmar pedido</button>
+        </form>
+        <p id="checkout-message" class="form-message" role="status" aria-live="polite"></p>
+      </aside>
+    </div>
+  </section>
+
+  <main id="inicio" class="page-shell">
+    <section id="auth-section" class="auth-section" aria-labelledby="welcome-title">
+      <div class="welcome-copy">
+        <p class="eyebrow">Compra con confianza</p>
+        <h1 id="welcome-title">Repuestos para que tus equipos sigan funcionando.</h1>
+        <p>Explora el catálogo y accede a tu cuenta para administrar tus compras.</p>
+      </div>
+      <div class="auth-card">
+        <div class="auth-tabs" role="tablist" aria-label="Acceso a la cuenta">
+          <button id="show-login" class="tab-button active" type="button" role="tab" aria-selected="true">Ingresar</button>
+          <button id="show-register" class="tab-button" type="button" role="tab" aria-selected="false">Crear cuenta</button>
+        </div>
+        <form id="login-form" class="form-stack">
+          <label>Correo electrónico<input name="email" type="email" autocomplete="email" required maxlength="150"></label>
+          <label>Contraseña<input name="password" type="password" autocomplete="current-password" required maxlength="128"></label>
+          <button class="button button-primary" type="submit">Ingresar</button>
+        </form>
+        <form id="register-form" class="form-stack" hidden>
+          <label>Nombre completo<input name="name" autocomplete="name" required minlength="2" maxlength="150"></label>
+          <label>Correo electrónico<input name="email" type="email" autocomplete="email" required maxlength="150"></label>
+          <label>Contraseña<input name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="128"></label>
+          <label>Teléfono<input name="phone" type="tel" autocomplete="tel" required minlength="7" maxlength="30"></label>
+          <label>Dirección<input name="address" autocomplete="street-address" required minlength="5" maxlength="200"></label>
+          <button class="button button-primary" type="submit">Crear cuenta de cliente</button>
+        </form>
+        <p id="auth-message" class="form-message" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="catalog-section" aria-labelledby="catalog-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Encuentra lo que necesitas</p>
+          <h2 id="catalog-title">Catálogo</h2>
+        </div>
+        <p id="catalog-count" class="muted"></p>
+      </div>
+      <div class="filters" role="search">
+        <label class="search-field">Buscar productos<input id="search-filter" type="search" placeholder="Ej. memoria RAM" maxlength="100"></label>
+        <label>Categoría<select id="category-filter"><option value="">Todas</option></select></label>
+        <label>Marca<select id="brand-filter"><option value="">Todas</option></select></label>
+      </div>
+      <p id="catalog-message" class="form-message" role="status" aria-live="polite"></p>
+      <div id="product-grid" class="product-grid"></div>
+    </section>
+
+    <section id="admin-panel" class="admin-section" aria-labelledby="admin-title" hidden>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Gestión de la tienda</p>
+          <h2 id="admin-title">Panel administrativo</h2>
+        </div>
+        <button id="refresh-admin" class="button button-secondary" type="button">Actualizar datos</button>
+      </div>
+
+      <div id="dashboard-summary" class="summary-grid" aria-live="polite"></div>
+      <p id="admin-message" class="form-message" role="status" aria-live="polite"></p>
+
+      <div class="admin-grid">
+        <form id="product-form" class="admin-card form-stack">
+          <div>
+            <p class="eyebrow">Inventario</p>
+            <h3 id="product-form-title">Crear producto</h3>
+          </div>
+          <input type="hidden" name="product_id">
+          <label>Nombre<input name="name" required minlength="2" maxlength="160"></label>
+          <label>Descripción<textarea name="description" rows="3" maxlength="255"></textarea></label>
+          <div class="form-row">
+            <label>Precio (COP)<input name="price" type="number" min="0" step="0.01" required></label>
+            <label>Existencias<input name="stock" type="number" min="0" step="1" required></label>
+          </div>
+          <label>Categoría<select name="category_id" required><option value="">Selecciona una categoría</option></select></label>
+          <label>Marca<select name="brand_id" required><option value="">Selecciona una marca</option></select></label>
+          <div class="button-row">
+            <button class="button button-primary" type="submit">Guardar producto</button>
+            <button id="cancel-edit" class="button button-quiet" type="button" hidden>Cancelar edición</button>
+          </div>
+        </form>
+
+        <form id="brand-form" class="admin-card form-stack">
+          <div>
+            <p class="eyebrow">Catálogo</p>
+            <h3>Crear marca</h3>
+          </div>
+          <label>Nombre de la marca<input name="name" required minlength="2" maxlength="100" placeholder="Ej. OEM"></label>
+          <label>País de origen (opcional)<input name="country_of_origin" maxlength="80" placeholder="Ej. No aplica"></label>
+          <button class="button button-secondary" type="submit">Guardar marca</button>
+          <p id="brand-message" class="form-message" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="admin-card inventory-card">
+          <div class="inventory-heading">
+            <div><p class="eyebrow">Productos</p><h3>Inventario</h3></div>
+            <label class="check-label"><input id="show-inactive" type="checkbox"> Mostrar inactivos</label>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Producto</th><th>Precio</th><th>Stock</th><th>Estado</th><th>Acciones</th></tr></thead>
+              <tbody id="admin-product-list"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><span>Repuestos Computador Bogotá</span><span>Catálogo y servicios técnicos</span></footer>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

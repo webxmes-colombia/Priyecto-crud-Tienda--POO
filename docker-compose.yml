@@ -1,0 +1,61 @@
+services:
+  backend:
+    build: ./backend
+    container_name: tienda_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: tienda_repuestos
+      DB_USER: root
+      DB_PASSWORD: root
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-dev-only-change-me-before-deployment}
+      JWT_ACCESS_TOKEN_MINUTES: 60
+
+  frontend:
+    build: ./frontend
+    container_name: tienda_frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: tienda_phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.0
+    container_name: tienda_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tienda_repuestos
+    ports:
+      - "3306:3306"
+    volumes:
+      # MySQL ejecuta este script al crear la base de datos por primera vez.
+      - ./tienda_repuestos.sql:/docker-entrypoint-initdb.d/01_tienda.sql:ro
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$${MYSQL_ROOT_PASSWORD} --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+volumes:
+  mysql_data:
